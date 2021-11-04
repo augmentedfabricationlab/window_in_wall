@@ -250,7 +250,7 @@ class Wall(object):
         """returns Tre if the relative coordintes (gate_rel_x,gate_rel_z) lie in
         a "persian" gate of size gate_size. otherwise false
         """   
-        persian_radius = 1/3*gate_size
+        persian_radius = (1/3)*gate_size
         # calculate regions
         # region 1 is the lower part (rectangular)
         region1 = gate_rel_z < persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0)
