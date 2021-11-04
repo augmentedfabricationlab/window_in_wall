@@ -255,7 +255,7 @@ class Wall(object):
         # region 1 is the lower part (rectangular)
         region1 = gate_rel_z < persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0)
         # equation 1 is true if the x distance to gate center is smaller than gate width / 2
-        equation1 = abs(gate_rel_x)-persian_radius < self.elsize/2
+        equation1 = abs(gate_rel_x)-persian_radius < self.elsize
 
         #region 2 is the midd section with smaller radii
         region2 = gate_rel_z > persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0) and gate_rel_z < persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2))
