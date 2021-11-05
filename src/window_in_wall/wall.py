@@ -232,7 +232,7 @@ class Wall(object):
         """   
 
         # calculate region (distance to gate center)
-        if (gate_rel_z + abs(gate_rel_x)) < gate_size:
+        if (gate_rel_z + abs(gate_rel_x)) < gate_size and gate_rel_z>=0:
             return True
         else:
             return False    
@@ -241,29 +241,29 @@ class Wall(object):
         """returns True if the relative coordintes (gate_rel_x,gate_rel_z) lie in
         a triangular gate of size gate_size. otherwise false
         """   
-        if abs(gate_rel_x) < gate_size and gate_rel_z < (gate_size-cat_a*math.cosh(gate_rel_x/cat_a)+cat_a):
+        if abs(gate_rel_x) < gate_size and gate_rel_z < (gate_size-cat_a*math.cosh(gate_rel_x/cat_a)+cat_a) and gate_rel_z>=0:
             return True
         else:
             return False
 
-    def in_gate_persian(self, gate_size, gate_rel_x, gate_rel_z):
+    def in_gate_persian(self, gate_size_raw, gate_rel_x, gate_rel_z, sizefactor=3):
         """returns Tre if the relative coordintes (gate_rel_x,gate_rel_z) lie in
         a "persian" gate of size gate_size. otherwise false
         """   
-        persian_radius = (1/3)*gate_size
+        gate_size = gate_size_raw/sizefactor
         # calculate regions
         # region 1 is the lower part (rectangular)
-        region1 = gate_rel_z < persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0)
+        region1 = gate_rel_z < gate_size*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0)
         # equation 1 is true if the x distance to gate center is smaller than gate width / 2
-        equation1 = abs(gate_rel_x)-persian_radius < self.elsize
+        equation1 = abs(gate_rel_x)-gate_size < 0
 
         #region 2 is the midd section with smaller radii
-        region2 = gate_rel_z > persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0) and gate_rel_z < persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2))
-        equation2 = abs((gate_rel_x)**2+(gate_rel_z-persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0))**2)-persian_radius*persian_radius < self.elsize*self.elsize
+        region2 = gate_rel_z > gate_size*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0) and gate_rel_z < gate_size*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2))
+        equation2 = abs((gate_rel_x)**2+(gate_rel_z-gate_size*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)/2.0))**2)-gate_size*gate_size < self.elsize*self.elsize
         
         #region 3 is the top section with larger radii and the pointy peak
-        region3 = gate_rel_z > persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)) #and gate_rel_z < persian_radius*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(7/2))
-        equation3 = abs((gate_rel_x+gate_rel_x*persian_radius*math.sqrt(2)/(2*abs(gate_rel_x)))**2+(gate_rel_z-persian_radius*(math.sqrt(2.5-math.sqrt(2.0))))**2)-4*persian_radius*persian_radius < self.elsize*self.elsize
+        region3 = gate_rel_z > gate_size*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(2)) #and gate_rel_z < gate_size*(math.sqrt(2.5-math.sqrt(2.0))+math.sqrt(7/2))
+        equation3 = abs((gate_rel_x+gate_rel_x*gate_size*math.sqrt(2)/(2*abs(gate_rel_x)))**2+(gate_rel_z-gate_size*(math.sqrt(2.5-math.sqrt(2.0))))**2)-4*gate_size*gate_size < self.elsize*self.elsize
 
         #checking if the point (coordinate) in question lies in  any of the regions
         if (region1 and equation1) or (region2 and equation2) or (region3 and equation3):
