@@ -4,7 +4,7 @@
 
 ### 1. Setting up the Anaconda environment with COMPAS
 
-#### Execute the commands below in Anaconda Prompt:
+#### Execute the commands below in Anaconda Prompt as Administator:
 	
     (base) conda config --add channels conda-forge
     (base) conda create -n wiw compas_fab --yes
@@ -38,16 +38,17 @@
     (wiw) python -m pip install git+https://github.com/augmentedfabricationlab/ur_fabrication_control@master#egg=ur_fabrication_control
     (wiw) python -m compas_rhino.install -p ur_fabrication_control -v 7.0
 
+#### Window in Wall
+    
+    (wiw) python -m pip install git+https://github.com/augmentedfabricationlab/window_in_wall@master#egg=window_in_wall
+    (wiw) python -m compas_rhino.install -p window_in_wall -v 7.0
+
 
 ### 3. Cloning and installing the Course Repository
 
 * Create a workspace directory: C:\Users\YOUR_USERNAME\workspace
 * Open Github Desktop, clone the [window_in_wall](https://github.com/augmentedfabricationlab/window_in_wall) repository into you workspace folder 
 * Install within your wiw env (in editable mode):
-
-###  
-    (wiw) pip install -e your_filepath_to_window_in_wall
-    (wiw) python -m compas_rhino.install -p window_in_wall -v 7.0
 
 ### 4. Notes on RPC:
 
