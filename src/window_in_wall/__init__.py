@@ -20,7 +20,6 @@ Describe typical classes found in project
 
 """
 
-from .sample_module import SampleClassName
 from .wall import Wall
 
-__all__ = ['SampleClassName', 'Wall']
+__all__ = ['Wall']
